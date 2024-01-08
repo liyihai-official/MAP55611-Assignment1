@@ -2,7 +2,6 @@
  * @file assignment1a.c
  * @brief This program is using MPI_Send and MPI_Recv to 
  * do broadcast the message and gather from other processes.
- * @date 2024-01-07
 */
 #include <mpi.h>
 #include <stdio.h>
