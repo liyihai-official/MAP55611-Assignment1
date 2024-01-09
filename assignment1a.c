@@ -64,7 +64,9 @@ int main(int argc, char * argv[]){
         /* Do some operations */
         for (int i =0; i<count; i++){
             vec[i]++;
+            // printf("%d ", vec[i]);
         }
+
         /* Send results to Rank 0 */
         MPI_Send(vec, count, MPI_INT, 0, 1, MPI_COMM_WORLD);
 

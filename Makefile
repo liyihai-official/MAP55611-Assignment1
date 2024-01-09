@@ -5,7 +5,8 @@ DFLAGS := -Wall -Wextra
 
 EXECS := assignment1a\
 		assignment1b\
-		assignment1c
+		assignment1c\
+		assignment1d
 
 OBJS := function.o
 
@@ -21,6 +22,9 @@ assignment1b: assignment1b.c $(OBJS)
 	$(MPICC) $(DFLAGS) $^ -o $@
 
 assignment1c: assignment1c.c $(OBJS)
+	$(MPICC) $(DFLAGS) $^ -o $@
+
+assignment1d: assignment1d.c $(OBJS)
 	$(MPICC) $(DFLAGS) $^ -o $@
 
 .PHONY: all clean

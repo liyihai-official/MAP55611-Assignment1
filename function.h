@@ -5,6 +5,7 @@
 #endif /* structure_h */
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 
 /* Function prototypes */
