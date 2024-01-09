@@ -44,3 +44,40 @@ int vector_fscanf(char * file_name, int ** vec, int * N){
 
     return return_message(0);
 }
+
+
+
+/**
+ * @brief One dimensional decomposition of a list of items of length n over p processors.
+ * This is the function for question 2.
+ * 
+ * @param myid, is the rank of the processor; 
+ * @param n, The number of vector
+ * @param p, The number of processors
+ * @param myid, id of process 
+ * @param s, start of chuck vector
+ * @param e, end of chuck vector
+ * 
+ * @return Return 0 for success
+*/
+int decomp1d(int n, int p, int myid, int *s, int *e){
+    int size = n/p;
+    int remainder = n % p;
+
+    /* Error checking */
+    if (s == NULL || e == NULL){
+        return return_message(1);
+    }
+
+    /* Dividing */
+    *s = 0;
+    *e = 0;
+    for (int i = 0; i <= myid; i++){
+        *e += size + (i < remainder ? 1:0);
+        if (i < myid){
+            *s += size + (i < remainder ? 1:0);
+        }
+    }
+
+    return 0;
+}
