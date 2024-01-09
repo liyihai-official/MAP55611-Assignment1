@@ -2,6 +2,9 @@
  * @file assignment1a.c
  * @brief This program is using MPI_Send and MPI_Recv to 
  * do broadcast the message and gather from other processes.
+ * @date 2024-01-09
+ * @author LIYIHAI
+ * @version 1.0.0
 */
 #include "function.h"
 #include <mpi.h>
@@ -46,6 +49,8 @@ int main(int argc, char * argv[]){
             printf("%d ", vec[i]);
         }
         printf("\n");
+
+        free(vec);
     
     } else {
         /* Local operations in other process */
@@ -62,6 +67,8 @@ int main(int argc, char * argv[]){
         }
         /* Send results to Rank 0 */
         MPI_Send(vec, count, MPI_INT, 0, 1, MPI_COMM_WORLD);
+
+        free(vec);
 
     }
     /* MPI close */

@@ -1,7 +1,4 @@
 #include "function.h"
-#include <stdlib.h>
-#include <stdio.h>
-
 
 /**
  * @brief Error message for debug

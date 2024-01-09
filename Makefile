@@ -3,7 +3,8 @@ GCC := gcc
 
 DFLAGS := -Wall -Wextra
 
-EXECS := assignment1a
+EXECS := assignment1a\
+		assignment1b
 OBJS := function.o
 
 all: $(EXECS)
@@ -12,6 +13,9 @@ all: $(EXECS)
 	$(GCC) $(DFLAGS) -c $< -o $@
 
 assignment1a: assignment1a.c $(OBJS)
+	$(MPICC) $(DFLAGS) $^ -o $@
+
+assignment1b: assignment1b.c $(OBJS)
 	$(MPICC) $(DFLAGS) $^ -o $@
 
 .PHONY: all clean
