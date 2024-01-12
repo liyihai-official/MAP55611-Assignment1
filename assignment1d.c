@@ -9,7 +9,7 @@
 #include <mpi.h>
 
 /* file path */
-char file_name[] = "datafile/q3file_10000.txt";
+char file_name[] = "datafile/q3file_97.txt";
 
 
 
