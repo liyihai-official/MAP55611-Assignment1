@@ -15,7 +15,6 @@
 char file_name[] = "datafile/q3file_10000.txt";
 char _file_name[] = "resultfile/q3file_10000.txt";
 
-
 int main(int argc, char * argv[]){
 
     /* MPI initialization */
@@ -29,7 +28,9 @@ int main(int argc, char * argv[]){
         /* Local operations on Rank 0 process */
         int * vec; 
         int N;
+
         vector_fscanf(file_name, &vec, &N); /* Loading vector from file */
+        
         int count = N / np;
 
         /* Send the evenly divided vec to other processes */

@@ -18,12 +18,13 @@ int main(int argc, char * argv[]){
     MPI_Comm_size(MPI_COMM_WORLD, &np);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    int N = 100;
+    /* Suppose we have vector with N elements */
+    int N = 1000;
+
+    /* Determine the decomposition of vector */
     int s, e;
-
-
     decomp1d(N, np, rank, &s, &e);
-    printf("Rank %d: [%d, %d]\n", rank, s, e);
+    printf("Rank %d got %d members with index: [%d, %d]\n", rank, e-s, s, e);
 
 
     MPI_Finalize();
