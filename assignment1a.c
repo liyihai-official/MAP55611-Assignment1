@@ -12,7 +12,7 @@
 #include <stdlib.h>
 
 /* file path */
-char file_name[] = "datafile/q3file_16.txt";
+char file_name[] = "datafile/q3file_10000.txt";
 
 int main(int argc, char * argv[]){
 
@@ -47,6 +47,9 @@ int main(int argc, char * argv[]){
                 vec[i]++;
             }
             printf("%d ", vec[i]);
+            if (i%20 == 0){
+                printf("\n");
+            }
         }
         printf("\n");
 

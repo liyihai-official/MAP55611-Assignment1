@@ -9,7 +9,7 @@
 #include <mpi.h>
 
 /* file path */
-char file_name[] = "datafile/q3file_16.txt";
+char file_name[] = "datafile/q3file_10000.txt";
 
 int l2_norm2(const int * in, const int N, double * norm){
     if (norm == NULL){
@@ -24,6 +24,7 @@ int l2_norm2(const int * in, const int N, double * norm){
 }
 
 int main(int argc, char * argv[]){
+    printf("A\n");
     MPI_Init(&argc, &argv);
     
     int np, rank;
@@ -48,28 +49,58 @@ int main(int argc, char * argv[]){
     MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD);
     decomp1d(N, np, rank, &s, &e);
 
+    /* Receive sub-vector and calculate the sum of elementary squares. */
     double sub_norm;
     int * subvec = malloc((e-s)*sizeof(int));
     MPI_Recv(subvec, e-s, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     l2_norm2(subvec, e-s, &sub_norm);
     
-    MPI_Send(&sub_norm, 1, MPI_DOUBLE, rank, 1, MPI_COMM_WORLD);
+    MPI_Send(&sub_norm, 1, MPI_DOUBLE, rank, 1, MPI_COMM_WORLD); 
 
+
+    /* Allocating memory for store cache values */
     double * cache = NULL;
-    if (rank == 2){
-        cache = malloc(np*sizeof(double));
-    }
-    MPI_Gather(&sub_norm, 1, MPI_DOUBLE, cache, 1, MPI_DOUBLE, 2, MPI_COMM_WORLD);
-    if (rank == 2){
-        double sum = 0;
-        for (int i = 0; i < np; i++){
-            sum += cache[i];
+    if (np > 2){
+        if (rank == 2){
+            cache = malloc(np*sizeof(double));
         }
-        sum = pow(sum, 0.5);
-        printf("%lf\n", sum);
-    } 
+    } else {
+        if (rank == 0){
+            cache = malloc(np*sizeof(double));
+        }
+    }
+
+    /* Gather values to rank 2 (if has) or rank 0 processor */
+    if (np > 2){
+        MPI_Gather(&sub_norm, 1, MPI_DOUBLE, cache, 1, MPI_DOUBLE, 2, MPI_COMM_WORLD);
+    } else {
+        MPI_Gather(&sub_norm, 1, MPI_DOUBLE, cache, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    }
+
+
+    if (np > 2){
+        if (rank == 2) {
+            double sum = 0;
+            for (int i = 0; i < np; i++){
+                sum += cache[i];
+            }
+            sum = pow(sum, 0.5);
+            printf("%lf\n", sum);
+        }
+    } else {
+        if (rank == 0){
+            double sum = 0;
+            for (int i = 0; i < np; i++){
+                sum += cache[i];
+            }
+            sum = pow(sum, 0.5);
+            printf("%lf\n", sum);
+        }
+    }
 
     free(subvec);
+    free(cache);
+
     MPI_Finalize();
     return 0;
 }
