@@ -81,3 +81,19 @@ int decomp1d(int n, int p, int myid, int *s, int *e){
 
     return 0;
 }
+
+
+
+
+int write_vector(void * vec, int N){
+    
+    
+
+
+
+
+
+
+
+
+}

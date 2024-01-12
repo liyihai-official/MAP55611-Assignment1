@@ -21,9 +21,9 @@ int main(int argc, char * argv[]){
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &np);
     MPI_Comm_rank(MPI_COMM_WORLD, &rk);
-    
+
     /* MPI main body */
-    if (rk == 0){ 
+    if (rk == 0){        
         /* Local operations on Rank 0 process */
         int * vec; 
         int N;
@@ -47,7 +47,7 @@ int main(int argc, char * argv[]){
                 vec[i]++;
             }
             printf("%d ", vec[i]);
-            if (i%20 == 0){
+            if (i>=20 && i%20 == 0){
                 printf("\n");
             }
         }
