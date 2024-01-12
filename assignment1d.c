@@ -11,8 +11,9 @@
 /* file path */
 char file_name[] = "datafile/q3file_10000.txt";
 
+
+
 int main(int argc, char * argv[]){
-    printf("A\n");
     MPI_Init(&argc, &argv);
     
     int np, rank;
@@ -41,6 +42,7 @@ int main(int argc, char * argv[]){
     double sub_norm;
     int * subvec = malloc((e-s)*sizeof(int));
     MPI_Recv(subvec, e-s, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    
     l2_norm2(subvec, e-s, &sub_norm);
     
     MPI_Send(&sub_norm, 1, MPI_DOUBLE, rank, 1, MPI_COMM_WORLD); 
@@ -89,6 +91,7 @@ int main(int argc, char * argv[]){
 
     free(subvec);
     free(cache);
+    
 
     MPI_Finalize();
     return 0;
