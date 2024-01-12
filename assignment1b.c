@@ -10,7 +10,8 @@
 
 
 /* file path */
-char file_name[] = "datafile/q3file_16.txt";
+char file_name[] = "datafile/q3file_10000.txt";
+char _file_name[] = "resultfile/q3file_10000.txt";
 
 int main(int argc, char * argv[]){
 
@@ -53,13 +54,12 @@ int main(int argc, char * argv[]){
 
     /* Print vector on rank 0*/
     if (rank == 0){
-        for (int i=0; i<N; i++){
-            printf("%d ", vec[i]);
-        }
-        printf("\n");
+        /* Store the vector in result folder */
+        write_vector(_file_name, vec, N, TYPE_INT); 
     }
 
     MPI_Finalize();
+    free(subArray);
     free(vec);
     
     return 0;

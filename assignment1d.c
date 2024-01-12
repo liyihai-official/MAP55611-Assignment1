@@ -11,18 +11,6 @@
 /* file path */
 char file_name[] = "datafile/q3file_10000.txt";
 
-int l2_norm2(const int * in, const int N, double * norm){
-    if (norm == NULL){
-        return return_message(1);
-    }
-
-    *norm = 0;
-    for (int i = 0; i < N; i++){
-        *norm += in[i]*in[i];
-    }
-    return 0;
-}
-
 int main(int argc, char * argv[]){
     printf("A\n");
     MPI_Init(&argc, &argv);
@@ -78,6 +66,7 @@ int main(int argc, char * argv[]){
     }
 
 
+    /* Sumption and determine the Norm */
     if (np > 2){
         if (rank == 2) {
             double sum = 0;

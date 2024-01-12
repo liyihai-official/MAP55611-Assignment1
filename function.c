@@ -1,3 +1,11 @@
+/**
+ * @file function.c
+ * @brief This is the function library of assignment1 a, b, c, d
+ * @date 2024-01-09
+ * @version 1.2.1
+ * @author LI Yihai
+*/
+
 #include "function.h"
 
 /**
@@ -5,11 +13,14 @@
  * @param[int] Integer, Error tags
  * 
  * @return Return 0 for successful, and 1 for NULL pointer error.
+ * 2 for Unknown Datatype.
 */
 int return_message(const int err){
     if (err == 1){
         printf("NULL pointer\n");
         return 1;
+    } else if (err == 2){
+        printf("Unknown Datatype\n");
     }
     return 0;
 }
@@ -45,6 +56,71 @@ int vector_fscanf(char * file_name, int ** vec, int * N){
     return return_message(0);
 }
 
+/**
+ * @brief Store the members and the length of vector to a given file.
+ *  The data type could be double and int
+ * 
+ * @param file_name The name of file.
+ * @param vec The void pointer of vector
+ * @param N Length of vector
+ * @param type The type of members of elements
+ * 
+ * @return return 0 for success and 1 or NULL pointer error
+ * @see return_message()
+*/
+int write_vector(char * file_name, void * vec, int N, DataType type){
+    
+    FILE * fp = fopen(file_name, "w");
+    if (fp == NULL) {
+        return return_message(1);
+    }
+    fprintf(fp, "%d\n", N);
+    switch (type){
+        case TYPE_INT:
+            for (int i = 0; i < N; i++){
+                fprintf(fp, "%d\n", ((int *)vec)[i]);
+            }
+            break;
+
+        case TYPE_DOUBLE:
+            for (int i = 0; i < N; i++){
+                fprintf(fp, "%lf\n", ((double *)vec)[i]);
+            }
+            break;
+
+        default:
+            return return_message(2);
+    }
+
+    return 0;
+
+}
+
+
+/**
+ * @brief Determine the quadratic elementary sum of input vector
+ * 
+ * @param in The pointer of vector
+ * @param N The length of vector
+ * @param norm The pointer pointed to the result
+ * 
+ * @return Return 0 for successfully operated, return 1 for NULL pointer 
+ * error.
+ * 
+ * @see return_message()
+*/
+int l2_norm2(const int * in, const int N, double * norm){
+    if (norm == NULL){
+        return return_message(1);
+    }
+
+    *norm = 0;
+    for (int i = 0; i < N; i++){
+        *norm += in[i]*in[i];
+    }
+    return 0;
+}
+
 
 
 /**
@@ -58,7 +134,9 @@ int vector_fscanf(char * file_name, int ** vec, int * N){
  * @param s, start of chuck vector
  * @param e, end of chuck vector
  * 
- * @return Return 0 for success
+ * @return Return 0 for success, return for NULL pointer error
+ * 
+ * @see return_message()
 */
 int decomp1d(int n, int p, int myid, int *s, int *e){
     int size = n/p;
@@ -80,20 +158,4 @@ int decomp1d(int n, int p, int myid, int *s, int *e){
     }
 
     return 0;
-}
-
-
-
-
-int write_vector(void * vec, int N){
-    
-    
-
-
-
-
-
-
-
-
 }

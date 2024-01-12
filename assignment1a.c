@@ -13,6 +13,8 @@
 
 /* file path */
 char file_name[] = "datafile/q3file_10000.txt";
+char _file_name[] = "resultfile/q3file_10000.txt";
+
 
 int main(int argc, char * argv[]){
 
@@ -41,17 +43,13 @@ int main(int argc, char * argv[]){
             MPI_Recv(vec+count*p_id, count, MPI_INT, p_id, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         }
 
-        /* Do local operation and print vector */
-        for (int i=0; i<N; i++){
-            if (i < count){
-                vec[i]++;
-            }
-            printf("%d ", vec[i]);
-            if (i>=20 && i%20 == 0){
-                printf("\n");
-            }
+        /* Do local operation */
+        for (int i=0; i<count; i++){
+            vec[i]++;
         }
-        printf("\n");
+
+        /* Store the vector in result folder */
+        write_vector(_file_name, vec, N, TYPE_INT); 
 
         free(vec);
     
@@ -64,10 +62,9 @@ int main(int argc, char * argv[]){
         int * vec = malloc(count * sizeof(int));
         MPI_Recv(vec, count, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         
-        /* Do some operations */
+        /* Do some operations (add 1) */
         for (int i =0; i<count; i++){
             vec[i]++;
-            // printf("%d ", vec[i]);
         }
 
         /* Send results to Rank 0 */
