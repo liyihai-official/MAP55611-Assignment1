@@ -1,6 +1,6 @@
 # Problem 1
 <ul>
-    <li><code>assignment1a.c/assignment1b.c -> q3file_16.txt</code></li>
+    <li>Results of <code>assignment1a.c/assignment1b.c -> q3file_16.txt</code></li>
 <pre>    
     16
     2
@@ -40,8 +40,10 @@
 10001
 </pre>
     
-<li><code>assignment1c.c</code></li>
-Do 10 processors for $n = 10000$
+# Problem 2
+<li>Results of <code>assignment1c.c</code></li>
+<ol>
+<li>Do 10 processors for $n = 10000$</li>
 <pre>
 $ mpiexec -np 10 assi
 gnment1c
@@ -57,7 +59,7 @@ Rank 8: [8000, 9000]
 Rank 9: [9000, 10000]
 </pre>
 
-Do 9 processors for $n = 25$
+<li>Do 9 processors for $n = 25$</li>
 <pre>
 $ mpiexec -np 9 assignment1c
 Rank 6 got 3 members with index: [18, 21]
@@ -71,7 +73,7 @@ Rank 2 got 3 members with index: [6, 9]
 Rank 7 got 2 members with index: [21, 23]
 </pre>
 
-Do 1 processor for $n=25$ and $n=10000$, gives the same result as multi-processors version.
+<li>Do 1 processor for $n=25$ and $n=10000$, gives the same result as multi-processors version.</li>
 
 <pre>
 $ mpiexec -np 1 assignment1c
@@ -82,8 +84,10 @@ Rank 0 got 25 members with index: [0, 25]
 $ mpiexec -np 1 assignment1c
 Rank 0 got 10000 members with index: [0, 10000]
 </pre>
+</ol>
 
-<li><code>assignment1d.c</code></li>
+# Problem 3
+<li>Results of <code>assignment1d.c</code> </li>
 <ol>
     <li><code>q3file_16.txt</code> for 4 processors</li>
 <pre>
@@ -106,9 +110,10 @@ $ mpiexec -np 11 assignment1d
 Load from:      datafile/q3file_97.txt   l2 norm = 555.828211
 </pre>
     <li><code>q3file_97.txt</code> for 6 processors</li>
-</ol>
+
 <pre>
 $ mpiexec -np 6 assignment1d
 Load from:      datafile/q3file_97.txt   l2 norm = 555.828211
 </pre>
+</ol>
 </ul>
