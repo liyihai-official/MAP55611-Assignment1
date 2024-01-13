@@ -19,7 +19,7 @@ int main(int argc, char * argv[]){
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
     /* Suppose we have vector with N elements */
-    int N = 1000;
+    int N = 25;
 
     /* Determine the decomposition of vector */
     int s, e;
