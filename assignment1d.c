@@ -12,7 +12,6 @@
 char file_name[] = "datafile/q3file_97.txt";
 
 
-
 int main(int argc, char * argv[]){
     MPI_Init(&argc, &argv);
     
@@ -76,7 +75,7 @@ int main(int argc, char * argv[]){
                 sum += cache[i];
             }
             sum = pow(sum, 0.5);
-            printf("%lf\n", sum);
+            printf("Load from: \t%s \t l2 norm = %lf\n", file_name, sum);
         }
     } else {
         if (rank == 0){
@@ -85,7 +84,7 @@ int main(int argc, char * argv[]){
                 sum += cache[i];
             }
             sum = pow(sum, 0.5);
-            printf("%lf\n", sum);
+            printf("Load from: \t%s \t l2 norm = %lf\n", file_name, sum);
         }
     }
 
